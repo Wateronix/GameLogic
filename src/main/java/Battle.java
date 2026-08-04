@@ -8,8 +8,8 @@ public class Battle {
     public Battle() {
         this.turn = 1;
         this.phase = "Start";
-        fighter1 = new Fighter(true, 10, 0);
-        fighter2 = new Fighter(false, 10 ,0);
+        fighter1 = new Fighter("Barbarian", true, 10, 0);
+        fighter2 = new Fighter("Fencer", false, 10 ,0);
         this.distance = 10;
     }
 

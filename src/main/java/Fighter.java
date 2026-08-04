@@ -1,16 +1,26 @@
 public class Fighter {
+    private String name;
     private boolean isFirst;
     private int maxHP;
     private int hp;
     private int armor;
     private String action;
 
-    public Fighter(boolean isFirst, int maxHP, int armor) {
+    public Fighter(String name, boolean isFirst, int maxHP, int armor) {
+        this.name = name;
         this.isFirst = isFirst;
         this.maxHP = maxHP;
         this.hp = maxHP;
         this.armor = armor;
         this.action = "";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isFirst() {
