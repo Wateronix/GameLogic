@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Battle {
     private int turn;
     private String phase;
@@ -13,15 +15,19 @@ public class Battle {
         this.distance = 10;
     }
 
-    public void declareAction(int fighterID, String action){
-        if (fighterID==1) fighter1.setAction(action);
-        if (fighterID==2) fighter2.setAction(action);
+    public List<String> getActionList(boolean fighterID){
+        return List.of("attack","heavyAttack","");
+    }
+
+    public void declareAction(boolean fighterID, String action){
+        if (fighterID) fighter1.setAction(action);
+        else fighter2.setAction(action);
         if (!fighter1.getAction().isEmpty() && !fighter2.getAction().isEmpty()) resolveActions();
     }
 
-    public void unDeclareAction(int fighterID){
-        if (fighterID==1) fighter1.setAction("");
-        if (fighterID==2) fighter2.setAction("");
+    public void unDeclareAction(boolean fighterID){
+        if (fighterID) fighter1.setAction("");
+        else fighter2.setAction("");
     }
 
     public void resolveActions(){
