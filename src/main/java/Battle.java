@@ -15,8 +15,12 @@ public class Battle {
         this.distance = 10;
     }
 
-    public List<String> getActionList(boolean fighterID){
-        return List.of("attack","heavyAttack","");
+    public List<Action> getActionList(boolean fighterID){
+        return List.of(
+                new Action("attack", "Normaler Angriff", "80% Treffer Chance, 1 Schaden"),
+                new Action("heavyAttack", "Schwerer Angriff", "40% Treffer Chance, 2 Schaden"),
+                new Action("", "Keine Aktion", "-")
+        );
     }
 
     public void declareAction(boolean fighterID, String action){
