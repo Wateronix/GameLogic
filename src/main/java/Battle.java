@@ -5,11 +5,11 @@ public class Battle {
     private Fighter fighter2;
     private int distance;
 
-    public Battle(Fighter fighter1, Fighter fighter2) {
+    public Battle() {
         this.turn = 1;
         this.phase = "Start";
-        this.fighter1 = fighter1;
-        this.fighter2 = fighter2;
+        fighter1 = new Fighter(true, 10, 0);
+        fighter2 = new Fighter(false, 10 ,0);
         this.distance = 10;
     }
 
