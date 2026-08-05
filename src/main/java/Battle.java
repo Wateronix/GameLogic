@@ -6,6 +6,7 @@ public class Battle {
     private Fighter fighter1;
     private Fighter fighter2;
     private int distance;
+    private List<Event> events;
 
     public Battle() {
         this.turn = 1;
@@ -13,6 +14,11 @@ public class Battle {
         fighter1 = new Fighter("Barbarian", true, 10, 0);
         fighter2 = new Fighter("Fencer", false, 10 ,0);
         this.distance = 10;
+        events = List.of();
+    }
+
+    public void addEvent(Event event){
+        this.events.add(event);
     }
 
     public List<Action> getActionList(boolean fighterID){
@@ -40,15 +46,26 @@ public class Battle {
         fighter1.setAction("");
         fighter2.setAction("");
         nextTurn();
+        addEvent(new Event("global", turn , "Beginning of Turn "+turn));
     }
 
     public void takeAction(Fighter attacker, Fighter target){
         switch (attacker.getAction()){
             case "attack":
-                if (Math.random()<0.8) target.looseHP(1);
+                if (Math.random()<0.8) {
+                    target.looseHP(1);
+                    addEvent(new Event("action", turn, attacker.getName()+" deals 1 damage to "+target.getName()+ " with a normal attack"));
+                }
+                else
+                    addEvent(new Event("action", turn, attacker.getName()+" misses "+target.getName()+ " with a normal attack"));
                 break;
             case "heavyAttack":
-                if (Math.random()<0.4) target.looseHP(2);
+                if (Math.random()<0.4) {
+                    target.looseHP(2);
+                    addEvent(new Event("action", turn, attacker.getName()+" deals 2 damage to "+target.getName()+ " with a heavy attack"));
+                }
+                else
+                    addEvent(new Event("action", turn, attacker.getName()+" misses "+target.getName()+ " with a heavy attack"));
                 break;
         }
     }
@@ -95,5 +112,13 @@ public class Battle {
 
     public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }
