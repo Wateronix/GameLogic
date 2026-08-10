@@ -18,7 +18,7 @@ public class Battle {
         events = new ArrayList<>(List.of(new Event("global",1,"Start of Turn 1")));
     }
 
-    public void addEvent(Event event){
+    private void addEvent(Event event){
         events.add(event);
     }
 
@@ -36,12 +36,7 @@ public class Battle {
         if (!fighter1.getAction().isEmpty() && !fighter2.getAction().isEmpty()) resolveActions();
     }
 
-    public void unDeclareAction(boolean fighterID){
-        if (fighterID) fighter1.setAction("");
-        else fighter2.setAction("");
-    }
-
-    public void resolveActions(){
+    private void resolveActions(){
         takeAction(fighter1, fighter2);
         takeAction(fighter2, fighter1);
         fighter1.setAction("");
@@ -50,7 +45,7 @@ public class Battle {
         addEvent(new Event("global", turn , "Beginning of Turn "+turn));
     }
 
-    public void takeAction(Fighter attacker, Fighter target){
+    private void takeAction(Fighter attacker, Fighter target){
         switch (attacker.getAction()){
             case "attack":
                 if (Math.random()<0.8) {
@@ -71,7 +66,7 @@ public class Battle {
         }
     }
 
-    public void nextTurn() {
+    private void nextTurn() {
         turn++;
     }
 
