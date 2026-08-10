@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class Battle {
     private int turn;
@@ -23,15 +24,20 @@ public class Battle {
         events.add(event);
     }
 
-    public void declareAction(boolean fighterID, Meistertechnik action){
-        if (fighterID) fighter1.setMeistertechnik(action);
-        else fighter2.setMeistertechnik(action);
-        if (!(fighter1.getMeistertechnik() == Meistertechnik.NO_ACTION) && !(fighter2.getMeistertechnik() == Meistertechnik.NO_ACTION))
-            resolveActions();
+    public void declareAction(boolean fighterID, String meistertechnikId){
+        Optional<Meistertechnik> action = Arrays.stream(Meistertechnik.values()).filter(meistertechnik -> meistertechnik.getId().equals(meistertechnikId)).findFirst();
+        action.ifPresent(meistertechnik ->
+                {
+                    if (fighterID) fighter1.setMeistertechnik(meistertechnik);
+                    else fighter2.setMeistertechnik(meistertechnik);
+                    if (!(fighter1.getMeistertechnik() == Meistertechnik.NO_ACTION) && !(fighter2.getMeistertechnik() == Meistertechnik.NO_ACTION))
+                        resolveActions();
+                }
+        );
     }
 
     private void resolveActions(){
-        //TODO
+
 
         //TODO
         fighter1.setMeistertechnik(Meistertechnik.NO_ACTION);

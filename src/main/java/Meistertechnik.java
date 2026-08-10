@@ -1,51 +1,49 @@
-import java.util.List;
-
 public enum Meistertechnik {
     NO_ACTION("noAction",
             "noAction",
             "No Action",
             "No Action",
             0,
-            List.of()),
+            ActionSchema.builder().build()),
     BLOCK_HIGH("blockHigh",
             "basic",
             "Block High",
             "blocks",
             0,
-            List.of(new Action(Type.BLOCK, Zone.HIGH))),
+            ActionSchema.builder().blocks(1,0,0).build()),
     ATTACK_HIGH("attackHigh",
             "basic",
             "Attack High",
             "attack",
             0,
-            List.of(new Action(Type.ATTACK, Zone.HIGH))),
+            ActionSchema.builder().attacks(1,0,0).build()),
     COUNTER_HIGH("counterHigh",
             "basic",
             "Counter High",
             "counter",
             0,
-            List.of(new Action(Type.COUNTER, Zone.HIGH))),
+            ActionSchema.builder().counters(1,0,0).build()),
     BREAK_HIGH("breakHigh",
             "basic",
             "Block Breaker High",
             "break block",
             0,
-            List.of(new Action(Type.BREAK, Zone.HIGH))),
+            ActionSchema.builder().breakers(1,0,0).build()),
     PARRY("parry",
             "basic",
             "Parry",
             "parry",
             0,
-            List.of(new Action(Type.PARRY, Zone.STRAIGHT)));
+            ActionSchema.builder().parries(1).build());
 
     private final String id;
     private final String group;
     private final String name;
     private final String description;
     private final int cost;
-    private final List<Action> actions;
+    private final ActionSchema actions;
 
-    Meistertechnik(String id, String group, String name, String description, int cost, List<Action> actions) {
+    Meistertechnik(String id, String group, String name, String description, int cost, ActionSchema actions) {
         this.id = id;
         this.group = group;
         this.name = name;
@@ -70,7 +68,7 @@ public enum Meistertechnik {
         return cost;
     }
 
-    public List<Action> getActions() {
+    public ActionSchema getActions() {
         return actions;
     }
 
