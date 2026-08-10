@@ -17,7 +17,6 @@ public record ActionSchema(int parries, Zones attacks, Zones counters, Zones blo
 
         public Builder parries(int count) { this.parries = count; return this; }
         public Builder attacks(int h, int s, int l) { this.attacks = new Zones(h, s, l); return this; }
-        public Builder attacks(Zones zones) { this.attacks = zones; return this; }
         public Builder counters(int h, int s, int l) { this.counters = new Zones(h, s, l); return this; }
         public Builder blocks(int h, int s, int l) { this.blocks = new Zones(h, s, l); return this; }
         public Builder breakers(int h, int s, int l) { this.breakers = new Zones(h, s, l); return this; }
@@ -25,5 +24,9 @@ public record ActionSchema(int parries, Zones attacks, Zones counters, Zones blo
         public ActionSchema build() {
             return new ActionSchema(parries, attacks, counters, blocks, breakers);
         }
+    }
+
+    public ActionSchema copy(){
+        return new ActionSchema(parries, attacks.copy(), counters.copy(), blocks.copy(), breakers.copy());
     }
 }

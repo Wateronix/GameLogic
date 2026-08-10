@@ -1,8 +1,17 @@
-public record Zones(int high, int straight, int low) {
+public class Zones {
+    int high;
+    int straight;
+    int low;
+
+    public Zones(int high, int straight, int low) {
+        this.high = high;
+        this.straight = straight;
+        this.low = low;
+    }
+
     public static final Zones ZERO = new Zones(0, 0, 0);
 
-    // Static factories so you only specify what you need
-    public static Zones high(int val) { return new Zones(val, 0, 0); }
-    public static Zones straight(int val) { return new Zones(0, val, 0); }
-    public static Zones low(int val) { return new Zones(0, 0, val); }
+    public Zones copy(){
+        return new Zones(high,straight,low);
+    }
 }
