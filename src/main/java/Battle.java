@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Battle {
@@ -22,48 +23,25 @@ public class Battle {
         events.add(event);
     }
 
-    public List<Action> getActionList(boolean fighterID){
-        return List.of(
-                new Action("attack", "Normaler Angriff", "80% Treffer Chance, 1 Schaden"),
-                new Action("heavyAttack", "Schwerer Angriff", "40% Treffer Chance, 2 Schaden"),
-                new Action("", "Keine Aktion", "-")
-        );
-    }
-
-    public void declareAction(boolean fighterID, String action){
-        if (fighterID) fighter1.setAction(action);
-        else fighter2.setAction(action);
-        if (!fighter1.getAction().isEmpty() && !fighter2.getAction().isEmpty()) resolveActions();
+    public void declareAction(boolean fighterID, Meistertechnik action){
+        if (fighterID) fighter1.setMeistertechnik(action);
+        else fighter2.setMeistertechnik(action);
+        if (!(fighter1.getMeistertechnik() == Meistertechnik.NO_ACTION) && !(fighter2.getMeistertechnik() == Meistertechnik.NO_ACTION))
+            resolveActions();
     }
 
     private void resolveActions(){
-        takeAction(fighter1, fighter2);
-        takeAction(fighter2, fighter1);
-        fighter1.setAction("");
-        fighter2.setAction("");
+        //TODO
+
+        //TODO
+        fighter1.setMeistertechnik(Meistertechnik.NO_ACTION);
+        fighter2.setMeistertechnik(Meistertechnik.NO_ACTION);
         nextTurn();
         addEvent(new Event("global", turn , "Beginning of Turn "+turn));
     }
 
-    private void takeAction(Fighter attacker, Fighter target){
-        switch (attacker.getAction()){
-            case "attack":
-                if (Math.random()<0.8) {
-                    target.looseHP(1);
-                    addEvent(new Event("action", turn, attacker.getName()+" deals 1 damage to "+target.getName()+ " with a normal attack"));
-                }
-                else
-                    addEvent(new Event("action", turn, attacker.getName()+" misses "+target.getName()+ " with a normal attack"));
-                break;
-            case "heavyAttack":
-                if (Math.random()<0.4) {
-                    target.looseHP(2);
-                    addEvent(new Event("action", turn, attacker.getName()+" deals 2 damage to "+target.getName()+ " with a heavy attack"));
-                }
-                else
-                    addEvent(new Event("action", turn, attacker.getName()+" misses "+target.getName()+ " with a heavy attack"));
-                break;
-        }
+    public List<Meistertechnik> getMeistertechnikList(String group){
+        return Arrays.stream(Meistertechnik.values()).filter(meistertechnik -> meistertechnik.getGroup().equals(group)).toList();
     }
 
     private void nextTurn() {

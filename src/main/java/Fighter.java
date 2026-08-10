@@ -4,7 +4,7 @@ public class Fighter {
     private int maxHP;
     private int hp;
     private int armor;
-    private String action;
+    private Meistertechnik meistertechnik;
 
     public Fighter(String name, boolean isFirst, int maxHP, int armor) {
         this.name = name;
@@ -12,7 +12,7 @@ public class Fighter {
         this.maxHP = maxHP;
         this.hp = maxHP;
         this.armor = armor;
-        this.action = "";
+        this.meistertechnik = Meistertechnik.NO_ACTION;
     }
 
     public String getName() {
@@ -59,11 +59,11 @@ public class Fighter {
         this.hp -= hp;
     }
 
-    public String getAction() {
-        return action;
+    public Meistertechnik getMeistertechnik() {
+        return meistertechnik;
     }
 
-    public void setAction(String action) {
-        this.action = action;
+    public void setMeistertechnik(Meistertechnik meistertechnik) {
+        this.meistertechnik = meistertechnik;
     }
 }
