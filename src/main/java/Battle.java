@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Battle {
@@ -14,11 +15,11 @@ public class Battle {
         fighter1 = new Fighter("Barbarian", true, 10, 0);
         fighter2 = new Fighter("Fencer", false, 10 ,0);
         this.distance = 10;
-        events = List.of();
+        events = new ArrayList<>(List.of(new Event("global",1,"Start of Turn 1")));
     }
 
     public void addEvent(Event event){
-        this.events.add(event);
+        events.add(event);
     }
 
     public List<Action> getActionList(boolean fighterID){
