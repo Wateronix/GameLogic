@@ -14,8 +14,8 @@ public class Battle {
     public Battle() {
         this.turn = 1;
         this.phase = "Start";
-        fighter1 = new Fighter("Barbarian", true, 10, 0);
-        fighter2 = new Fighter("Fencer", false, 10 ,0);
+        fighter1 = new Fighter("Barbarian", true, 15, 15,6,1);
+        fighter2 = new Fighter("Fencer", false, 15 ,15, 6,1);
         this.distance = 10;
         events = new ArrayList<>(List.of(new Event("global",1,"Start of Turn 1")));
     }
@@ -52,12 +52,20 @@ public class Battle {
         applyParries(actions2.parries(), actions1.attacks(), hits2);
         applyParries(actions1.parries(), actions2.attacks(), hits1);
 
-        //TODO resolve hits
+        applyHits(fighter1, fighter2, hits1);
+        applyHits(fighter2, fighter1, hits2);
+
         fighter1.setMeistertechnik(Meistertechnik.NO_ACTION);
         fighter2.setMeistertechnik(Meistertechnik.NO_ACTION);
 
         nextTurn();
         addEvent(new Event("global", turn , "Beginning of Turn "+turn));
+    }
+
+    private void applyHits(Fighter target, Fighter attacker, Zones hits){
+        target.applyDamage(Math.max((attacker.getDamage()-target.getArmor()+1),0)*hits.high);
+        target.applyDamage(Math.max((attacker.getDamage()-target.getArmor()),0)*hits.straight);
+        target.applyDamage(Math.max((attacker.getDamage()-target.getArmor()-1),0)*hits.low);
     }
 
     private void applyCounters(Zones counters, Zones attacks, Zones hits) {
