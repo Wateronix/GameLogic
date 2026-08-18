@@ -14,4 +14,12 @@ public class Zones {
     public Zones copy(){
         return new Zones(high,straight,low);
     }
+
+    public int sum(){
+        return high+straight+low;
+    }
+
+    public Zones add(Zones a){
+        return new Zones(high+a.high,straight+a.straight, low+a.low);
+    }
 }

@@ -1,22 +1,16 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 public class Battle {
     private int turn;
-    private String phase;
     private Fighter fighter1;
     private Fighter fighter2;
-    private int distance;
     private List<Event> events;
 
     public Battle() {
         this.turn = 1;
-        this.phase = "Start";
-        fighter1 = new Fighter("Barbarian", true, 15, 15,6,1);
-        fighter2 = new Fighter("Fencer", false, 15 ,15, 6,1);
-        this.distance = 10;
+        fighter1 = new Fighter("Barbarian", 50, 25, FighterClass.BARBARIAN);
+        fighter2 = new Fighter("Fencer", 50, 25 ,FighterClass.FENCER);
         events = new ArrayList<>(List.of(new Event("global",1,"Start of Turn 1")));
     }
 
@@ -24,16 +18,22 @@ public class Battle {
         events.add(event);
     }
 
-    public void declareAction(boolean fighterID, String meistertechnikId){
-        Optional<Meistertechnik> action = Arrays.stream(Meistertechnik.values()).filter(meistertechnik -> meistertechnik.getId().equals(meistertechnikId)).findFirst();
-        action.ifPresent(meistertechnik ->
-                {
-                    if (fighterID) fighter1.setMeistertechnik(meistertechnik);
-                    else fighter2.setMeistertechnik(meistertechnik);
-                    if (!(fighter1.getMeistertechnik() == Meistertechnik.NO_ACTION) && !(fighter2.getMeistertechnik() == Meistertechnik.NO_ACTION))
-                        resolveActions();
-                }
-        );
+    public void declareAction(boolean fighterID, Meistertechnik meistertechnik){
+        if (fighterID) {
+            fighter1.setMeistertechnik(meistertechnik);
+            fighter1.setReady(true);
+        }
+        else {
+            fighter2.setMeistertechnik(meistertechnik);
+            fighter2.setReady(true);
+        }
+        if (fighter1.isReady() && fighter2.isReady())
+            resolveActions();
+    }
+
+    public void unDeclareAction(boolean fighterID){
+        if (fighterID) fighter1.setReady(false);
+        else fighter2.setReady(false);
     }
 
     private void resolveActions(){
@@ -52,20 +52,28 @@ public class Battle {
         applyParries(actions2.parries(), actions1.attacks(), hits2);
         applyParries(actions1.parries(), actions2.attacks(), hits1);
 
-        applyHits(fighter1, fighter2, hits1);
-        applyHits(fighter2, fighter1, hits2);
+        if (fighter2.getFighterClass().equals(FighterClass.BARBARIAN))
+            applyHits(fighter1, hits1, 16);
+        else
+            applyHits(fighter1, hits1, 8);
+        if (fighter1.getFighterClass().equals(FighterClass.BARBARIAN))
+            applyHits(fighter2, hits2, 16);
+        else
+            applyHits(fighter2, hits2, 8);
 
-        fighter1.setMeistertechnik(Meistertechnik.NO_ACTION);
-        fighter2.setMeistertechnik(Meistertechnik.NO_ACTION);
+        fighter1.setMeistertechnik(new Meistertechnik(fighter1.getFighterClass()));
+        fighter1.setReady(false);
+        fighter2.setMeistertechnik(new Meistertechnik(fighter2.getFighterClass()));
+        fighter2.setReady(false);
 
         nextTurn();
-        addEvent(new Event("global", turn , "Beginning of Turn "+turn));
+        addEvent(new Event("global", turn , "Start of Turn "+turn));
     }
 
-    private void applyHits(Fighter target, Fighter attacker, Zones hits){
-        target.applyDamage(Math.max((attacker.getDamage()-target.getArmor()+1),0)*hits.high);
-        target.applyDamage(Math.max((attacker.getDamage()-target.getArmor()),0)*hits.straight);
-        target.applyDamage(Math.max((attacker.getDamage()-target.getArmor()-1),0)*hits.low);
+    private void applyHits(Fighter target, Zones hits, int baseDamage){
+        target.applyDamage(baseDamage*hits.high*9/8);
+        target.applyDamage(baseDamage*hits.straight);
+        target.applyDamage(baseDamage*hits.low*7/8);
     }
 
     private void applyCounters(Zones counters, Zones attacks, Zones hits) {
@@ -102,10 +110,6 @@ public class Battle {
         hits.low += attacks.low - Math.min(attacks.low, parries);
     }
 
-    public List<Meistertechnik> getMeistertechnikList(String group){
-        return Arrays.stream(Meistertechnik.values()).filter(meistertechnik -> meistertechnik.getGroup().equals(group)).toList();
-    }
-
     private void nextTurn() {
         turn++;
     }
@@ -116,14 +120,6 @@ public class Battle {
 
     public void setTurn(int turn) {
         this.turn = turn;
-    }
-
-    public String getPhase() {
-        return phase;
-    }
-
-    public void setPhase(String phase) {
-        this.phase = phase;
     }
 
     public Fighter getFighter1() {
@@ -140,14 +136,6 @@ public class Battle {
 
     public void setFighter2(Fighter fighter2) {
         this.fighter2 = fighter2;
-    }
-
-    public int getDistance() {
-        return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
     }
 
     public List<Event> getEvents() {

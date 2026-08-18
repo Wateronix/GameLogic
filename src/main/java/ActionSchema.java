@@ -29,4 +29,13 @@ public record ActionSchema(int parries, Zones attacks, Zones counters, Zones blo
     public ActionSchema copy(){
         return new ActionSchema(parries, attacks.copy(), counters.copy(), blocks.copy(), breakers.copy());
     }
+
+    public ActionSchema add(ActionSchema a){
+        return new ActionSchema(
+                parries+a.parries,
+                attacks.add(a.attacks),
+                counters.add(a.counters),
+                blocks.add(a.blocks),
+                breakers.add(a.breakers));
+    }
 }

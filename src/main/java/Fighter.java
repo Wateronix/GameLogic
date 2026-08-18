@@ -1,24 +1,22 @@
 public class Fighter {
     private String name;
-    private boolean isFirst;
+    private boolean isReady;
     private int maxWounds;
     private int wounds;
     private int maxSoulStrain;
     private int soulStrain;
-    private int damage;
-    private int armor;
+    private FighterClass fighterClass;
     private Meistertechnik meistertechnik;
 
-    public Fighter(String name, boolean isFirst, int maxHP, int maxSoulStrain, int damage, int armor) {
+    public Fighter(String name, int maxHP, int maxSoulStrain, FighterClass fighterClass) {
         this.name = name;
-        this.isFirst = isFirst;
+        this.isReady = false;
         this.maxWounds = maxHP;
-        this.wounds = 0;
+        this.wounds = maxHP;
         this.maxSoulStrain = maxSoulStrain;
-        this.soulStrain = 0;
-        this.damage = damage;
-        this.armor = armor;
-        this.meistertechnik = Meistertechnik.NO_ACTION;
+        this.soulStrain = maxSoulStrain;
+        this.fighterClass = fighterClass;
+        this.meistertechnik = new Meistertechnik(fighterClass);
     }
 
     public String getName() {
@@ -29,12 +27,12 @@ public class Fighter {
         this.name = name;
     }
 
-    public boolean isFirst() {
-        return isFirst;
+    public boolean isReady() {
+        return isReady;
     }
 
-    public void setFirst(boolean first) {
-        isFirst = first;
+    public void setReady(boolean ready) {
+        isReady = ready;
     }
 
     public int getMaxWounds() {
@@ -47,26 +45,6 @@ public class Fighter {
 
     public int getWounds() {
         return wounds;
-    }
-
-    public int getArmor() {
-        return armor;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    public void applyDamage(int damage){
-        this.damage += damage;
-    }
-
-    public void setArmor(int armor) {
-        this.armor = armor;
     }
 
     public void setWounds(int wounds) {
@@ -90,7 +68,11 @@ public class Fighter {
     }
 
     public void applySoulStrain(int soulStrain){
-        this.soulStrain += soulStrain;
+        this.soulStrain -= soulStrain;
+    }
+
+    public void applyDamage(int damage){
+        this.wounds -= damage;
     }
 
     public Meistertechnik getMeistertechnik() {
@@ -99,5 +81,13 @@ public class Fighter {
 
     public void setMeistertechnik(Meistertechnik meistertechnik) {
         this.meistertechnik = meistertechnik;
+    }
+
+    public FighterClass getFighterClass() {
+        return fighterClass;
+    }
+
+    public void setFighterClass(FighterClass fighterClass) {
+        this.fighterClass = fighterClass;
     }
 }
