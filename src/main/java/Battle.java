@@ -61,6 +61,9 @@ public class Battle {
         else
             applyHits(fighter2, hits2, 8);
 
+        fighter1.applySoulStrain(fighter1.getMeistertechnik().getCost());
+        fighter2.applySoulStrain(fighter2.getMeistertechnik().getCost());
+
         fighter1.setMeistertechnik(new Meistertechnik(fighter1.getFighterClass()));
         fighter1.setReady(false);
         fighter2.setMeistertechnik(new Meistertechnik(fighter2.getFighterClass()));
