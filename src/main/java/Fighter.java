@@ -7,6 +7,7 @@ public class Fighter {
     private int soulStrain;
     private FighterClass fighterClass;
     private Meistertechnik meistertechnik;
+    private Meistertechnik previousMeistertechnik;
 
     public Fighter(String name, int maxHP, int maxSoulStrain, FighterClass fighterClass) {
         this.name = name;
@@ -17,6 +18,7 @@ public class Fighter {
         this.soulStrain = maxSoulStrain;
         this.fighterClass = fighterClass;
         this.meistertechnik = new Meistertechnik(fighterClass);
+        this.previousMeistertechnik = new Meistertechnik(fighterClass);
     }
 
     public String getName() {
@@ -89,5 +91,13 @@ public class Fighter {
 
     public void setFighterClass(FighterClass fighterClass) {
         this.fighterClass = fighterClass;
+    }
+
+    public Meistertechnik getPreviousMeistertechnik() {
+        return previousMeistertechnik;
+    }
+
+    public void setPreviousMeistertechnik(Meistertechnik previousMeistertechnik) {
+        this.previousMeistertechnik = previousMeistertechnik;
     }
 }
