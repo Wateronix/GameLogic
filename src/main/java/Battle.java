@@ -18,25 +18,25 @@ public class Battle {
         events.add(event);
     }
 
-    public void declareAction(boolean fighterID){
-        getFighter(fighterID).setReady(true);
-
+    public void declareAction(boolean fighterID, Meistertechnik meistertechnik){
+        if (fighterID) {
+            fighter1.setMeistertechnik(meistertechnik);
+            fighter1.setReady(true);
+        }
+        else {
+            fighter2.setMeistertechnik(meistertechnik);
+            fighter2.setReady(true);
+        }
         if (fighter1.isReady() && fighter2.isReady())
             resolveActions();
     }
 
     public void unDeclareAction(boolean fighterID){
-        getFighter(fighterID).setReady(false);
-    }
-
-    public void resetActions(boolean fighterID){
-        getFighter(fighterID).setMeistertechnik(new Meistertechnik(getFighter(fighterID).getFighterClass()));
+        if (fighterID) fighter1.setReady(false);
+        else fighter2.setReady(false);
     }
 
     private void resolveActions(){
-        fighter1.setPreviousMeistertechnik(fighter1.getMeistertechnik());
-        fighter2.setPreviousMeistertechnik(fighter2.getMeistertechnik());
-
         ActionSchema actions1 = fighter1.getMeistertechnik().getActions().copy();
         ActionSchema actions2 = fighter2.getMeistertechnik().getActions().copy();
 
@@ -113,23 +113,6 @@ public class Battle {
         hits.low += attacks.low - Math.min(attacks.low, parries);
     }
 
-    public List<Action> getActionOptions(boolean fighterID){
-        return getFighter(fighterID).getMeistertechnik()
-                .getOptions(getFighter(fighterID).getMaxSoulStrain() - getFighter(fighterID).getSoulStrain());
-    }
-
-    public void addFighterAction(boolean fighterID, Action action){
-        getFighter(fighterID).getMeistertechnik().addAction(action);
-    }
-
-    public Meistertechnik getCurrentMeistertechnik(boolean fighterID){
-        return getFighter(fighterID).getMeistertechnik();
-    }
-
-    public Meistertechnik getPreviousMeistertechnik(boolean fighterID){
-        return getFighter(fighterID).getPreviousMeistertechnik();
-    }
-
     private void nextTurn() {
         turn++;
     }
@@ -164,10 +147,5 @@ public class Battle {
 
     public void setEvents(List<Event> events) {
         this.events = events;
-    }
-
-    private Fighter getFighter(boolean fighterID){
-        if (fighterID) return fighter1;
-            else return fighter2;
     }
 }
