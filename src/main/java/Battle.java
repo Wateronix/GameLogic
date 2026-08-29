@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Battle {
     private int turn;
@@ -216,8 +217,11 @@ public class Battle {
                 .getOptions(getFighter(fighterID).getMaxSoulStrain() - getFighter(fighterID).getSoulStrain());
     }
 
-    public void addFighterAction(boolean fighterID, Action action){
-        getFighter(fighterID).getMeistertechnik().addAction(action);
+    public void addFighterAction(boolean fighterID, String actionID){
+        getActionOptions(fighterID).stream()
+                .filter(action -> action.id().equals(actionID))
+                .findFirst()
+                .ifPresent(action -> getFighter(fighterID).getMeistertechnik().addAction(action));
     }
 
     public Meistertechnik getCurrentMeistertechnik(boolean fighterID){
