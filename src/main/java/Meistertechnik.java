@@ -66,6 +66,35 @@ public class Meistertechnik {
         cost += action.cost();
     }
 
+    public String describe(){
+        String out = "";
+        out += actionNumber("Block Breaker High", actions.breakers().high);
+        out += actionNumber("Attack Straight", actions.attacks().high);
+        out += actionNumber("Block Breaker Straight", actions.breakers().straight);
+        out += actionNumber("Attack Straight", actions.attacks().straight);
+        out += actionNumber("Block Breaker Low", actions.breakers().low);
+        out += actionNumber("Attack Low", actions.attacks().low);
+
+        out += actionNumber("Counter High", actions.counters().high);
+        out += actionNumber("Counter Straight", actions.counters().straight);
+        out += actionNumber("Counter Low", actions.counters().low);
+
+        out += actionNumber("Block High", actions.blocks().high);
+        out += actionNumber("Block Straight", actions.blocks().straight);
+        out += actionNumber("Block Low", actions.blocks().low);
+
+        out += actionNumber("Parry", actions.parries());
+        out = out.substring(0, Math.max(0, out.length() - 2));
+        return out;
+    }
+
+    private String actionNumber(String action, int number){
+        if (number == 0) return "";
+        else if (number == 1) return action + ", ";
+        else return action + " x" + number + ", ";
+    }
+
+
     public FighterClass getFighterClass() {
         return fighterClass;
     }
