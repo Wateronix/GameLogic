@@ -77,7 +77,7 @@ public class Battle {
                         " Soulstrain and took " + damage2 + " Wounds");
 
         boolean fighter1Alive = fighter1.getWounds()>0;
-        boolean fighter2Alive = fighter1.getWounds()>0;
+        boolean fighter2Alive = fighter2.getWounds()>0;
 
         if (fighter1Alive && fighter2Alive) {
             fighter1.setMeistertechnik(new Meistertechnik(fighter1.getFighterClass()));
