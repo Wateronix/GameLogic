@@ -43,10 +43,19 @@ public class Meistertechnik {
         }
         int maxCost = mana - cost;
 
+        String highD = " (9 Dmg)";
+        String strD = " (8 Dmg)";
+        String lowD = " (7 Dmg)";
+        if (fighterClass.equals(FighterClass.BARBARIAN)){
+            highD = " (18 Dmg)";
+            strD = " (16 Dmg)";
+            lowD = " (14 Dmg)";
+        }
+
         List<Action> list = new ArrayList<>(List.of(
-                new Action("aH", "Attack High", attackCost, ActionSchema.builder().attacks(1, 0, 0).build()),
-                new Action("aS", "Attack Straight", attackCost, ActionSchema.builder().attacks(0, 1, 0).build()),
-                new Action("aL", "Attack Low", attackCost, ActionSchema.builder().attacks(0, 0, 1).build()),
+                new Action("aH", "Attack High"+highD, attackCost, ActionSchema.builder().attacks(1, 0, 0).build()),
+                new Action("aS", "Attack Straight"+strD, attackCost, ActionSchema.builder().attacks(0, 1, 0).build()),
+                new Action("aL", "Attack Low"+lowD, attackCost, ActionSchema.builder().attacks(0, 0, 1).build()),
                 new Action("p", "Parry", parryCost, ActionSchema.builder().parries(1).build()),
                 new Action("bH", "Block High", blockCost, ActionSchema.builder().blocks(1, 0, 0).build()),
                 new Action("bS", "Block Straight", blockCost, ActionSchema.builder().blocks(0, 1, 0).build()),

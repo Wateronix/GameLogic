@@ -36,11 +36,11 @@ public class Battle {
 
     private void resolveActions(){
         addEvent("pre",
-                fighter1.getName() + "has used " +
+                fighter1.getName() + " has used " +
                         fighter1.getMeistertechnik().getCost() + " Soulstrain to perform the following Actions: " +
                         fighter1.getMeistertechnik().describe());
         addEvent("pre",
-                fighter2.getName() + "has used " +
+                fighter2.getName() + " has used " +
                         fighter2.getMeistertechnik().getCost() + " Soulstrain to perform the following Actions: " +
                         fighter2.getMeistertechnik().describe());
 
