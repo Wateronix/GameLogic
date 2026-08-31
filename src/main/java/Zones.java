@@ -22,4 +22,28 @@ public class Zones {
     public Zones add(Zones a){
         return new Zones(high+a.high,straight+a.straight, low+a.low);
     }
+
+    public int getHigh() {
+        return high;
+    }
+
+    public void setHigh(int high) {
+        this.high = high;
+    }
+
+    public int getStraight() {
+        return straight;
+    }
+
+    public void setStraight(int straight) {
+        this.straight = straight;
+    }
+
+    public int getLow() {
+        return low;
+    }
+
+    public void setLow(int low) {
+        this.low = low;
+    }
 }

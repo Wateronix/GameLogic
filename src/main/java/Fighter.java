@@ -9,14 +9,14 @@ public class Fighter {
     private Meistertechnik meistertechnik;
     private Meistertechnik previousMeistertechnik;
 
-    public Fighter(String name, int maxHP, int maxSoulStrain, FighterClass fighterClass) {
-        this.name = name;
-        this.isReady = false;
-        this.maxWounds = maxHP;
-        this.wounds = maxHP;
-        this.maxSoulStrain = maxSoulStrain;
-        this.soulStrain = maxSoulStrain;
+    public Fighter(FighterClass fighterClass) {
+        this.name = fighterClass.name();
         this.fighterClass = fighterClass;
+        this.isReady = false;
+        this.maxWounds = fighterClass.maxWounds();
+        this.wounds = maxWounds;
+        this.maxSoulStrain = fighterClass.maxSoulStrain();
+        this.soulStrain = maxSoulStrain;
         this.meistertechnik = new Meistertechnik(fighterClass);
         this.previousMeistertechnik = new Meistertechnik(fighterClass);
     }

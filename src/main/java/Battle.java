@@ -8,10 +8,10 @@ public class Battle {
     private Fighter fighter2;
     private List<Event> events;
 
-    public Battle() {
+    public Battle(FighterClass fighterClass1, FighterClass fighterClass2) {
         this.turn = 1;
-        fighter1 = new Fighter("Barbarian", 50, 25, FighterClass.BARBARIAN);
-        fighter2 = new Fighter("Fencer", 50, 25 ,FighterClass.FENCER);
+        this.fighter1 = new Fighter(fighterClass1);
+        this.fighter2 = new Fighter(fighterClass2);
         events = new ArrayList<>(List.of(new Event("global",1,"Start of Turn 1")));
     }
 
