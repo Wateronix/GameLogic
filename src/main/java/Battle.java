@@ -156,8 +156,8 @@ public class Battle {
     }
 
     private void applyBlocks(Zones defenderBlocks, Zones attackerBreakers, Zones attackerAttacks, boolean fighterID) {
-        for (int i = Math.max(defenderBlocks.high,attackerBreakers.high); i>0;i--){
-            addEvent("breaker",getFighter(fighterID).getName() + " breaks the high block of " + getFighter(!fighterID));
+        for (int i = Math.min(defenderBlocks.high,attackerBreakers.high); i>0;i--){
+            addEvent("breaker",getFighter(fighterID).getName() + " breaks the high block of " + getFighter(!fighterID).getName());
         }
         if (defenderBlocks.high > attackerBreakers.high && attackerAttacks.high > 0) {
             addEvent("block",
@@ -165,8 +165,8 @@ public class Battle {
             attackerAttacks.high = 0;
         }
 
-        for (int i = Math.max(defenderBlocks.straight,attackerBreakers.straight); i>0;i--){
-            addEvent("breaker",getFighter(fighterID).getName() + " breaks the straight block of " + getFighter(!fighterID));
+        for (int i = Math.min(defenderBlocks.straight,attackerBreakers.straight); i>0;i--){
+            addEvent("breaker",getFighter(fighterID).getName() + " breaks the straight block of " + getFighter(!fighterID).getName());
         }
         if (defenderBlocks.straight > attackerBreakers.straight && attackerAttacks.straight > 0) {
             addEvent("block",
@@ -174,8 +174,8 @@ public class Battle {
             attackerAttacks.straight = 0;
         }
 
-        for (int i = Math.max(defenderBlocks.low,attackerBreakers.low); i>0;i--){
-            addEvent("breaker",getFighter(fighterID).getName() + " breaks the low block of " + getFighter(!fighterID));
+        for (int i = Math.min(defenderBlocks.low,attackerBreakers.low); i>0;i--){
+            addEvent("breaker",getFighter(fighterID).getName() + " breaks the low block of " + getFighter(!fighterID).getName());
         }
         if (defenderBlocks.low > attackerBreakers.low && attackerAttacks.low > 0) {
             addEvent("block",
