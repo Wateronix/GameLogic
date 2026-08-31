@@ -214,7 +214,7 @@ public class Battle {
 
     public List<Action> getActionOptions(boolean fighterID){
         return getFighter(fighterID).getMeistertechnik()
-                .getOptions(getFighter(fighterID).getMaxSoulStrain() - getFighter(fighterID).getSoulStrain());
+                .getOptions(getFighter(fighterID).getSoulStrain());
     }
 
     public void addFighterAction(boolean fighterID, String actionID){
