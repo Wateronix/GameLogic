@@ -16,19 +16,19 @@ public enum FighterClass {
         this.maxSoulStrain = maxSoulStrain;
     }
 
-    public String displayName() {
+    public String getDisplayName() {
         return displayName;
     }
 
-    public String description() {
+    public String getDescription() {
         return description;
     }
 
-    public int maxWounds() {
+    public int getMaxWounds() {
         return maxWounds;
     }
 
-    public int maxSoulStrain() {
+    public int getBaxSoulStrain() {
         return maxSoulStrain;
     }
 }

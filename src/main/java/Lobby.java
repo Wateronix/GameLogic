@@ -23,7 +23,7 @@ public class Lobby {
         FighterClass fc = Arrays.stream(FighterClass.values())
                 .toList()
                 .stream()
-                .filter(fighterClass -> fighterClass.displayName().equals(fighterName))
+                .filter(fighterClass -> fighterClass.getDisplayName().equals(fighterName))
                 .findFirst()
                 .orElse(FighterClass.BARBARIAN);
         if (playerID){
