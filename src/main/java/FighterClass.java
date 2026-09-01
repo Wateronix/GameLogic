@@ -28,7 +28,7 @@ public enum FighterClass {
         return maxWounds;
     }
 
-    public int getBaxSoulStrain() {
+    public int getMaxSoulStrain() {
         return maxSoulStrain;
     }
 }

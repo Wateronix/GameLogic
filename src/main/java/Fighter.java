@@ -15,7 +15,7 @@ public class Fighter {
         this.isReady = false;
         this.maxWounds = fighterClass.getMaxWounds();
         this.wounds = maxWounds;
-        this.maxSoulStrain = fighterClass.getBaxSoulStrain();
+        this.maxSoulStrain = fighterClass.getMaxSoulStrain();
         this.soulStrain = maxSoulStrain;
         this.meistertechnik = new Meistertechnik(fighterClass);
         this.previousMeistertechnik = new Meistertechnik(fighterClass);
