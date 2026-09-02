@@ -20,19 +20,19 @@ public class Lobby {
     }
 
     public void selectFighter(String fighterName, boolean playerID){
-        FighterClass fc = Arrays.stream(FighterClass.values())
+        Arrays.stream(FighterClass.values())
                 .toList()
                 .stream()
                 .filter(fighterClass -> fighterClass.getDisplayName().equals(fighterName))
-                .findFirst()
-                .orElse(FighterClass.BARBARIAN);
-        if (playerID){
-            player1Selection = fc;
-            player1Ready = true;
-        } else {
-            player2Selection = fc;
-            player2Ready = true;
-        }
+                .findFirst().ifPresent(fighterClass -> {
+                    if (playerID) player1Selection = fighterClass;
+                    else player2Selection = fighterClass;
+                });
+    }
+
+    public void ready(boolean playerID){
+        if (playerID)player1Ready = true;
+        else player2Ready = true;
 
         if (player1Ready && player2Ready)
             battle = new Battle(player1Selection,player2Selection);
