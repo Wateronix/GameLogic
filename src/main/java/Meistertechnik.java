@@ -78,7 +78,7 @@ public class Meistertechnik {
     public String describe(){
         String out = "";
         out += actionNumber("Block Breaker High", actions.breakers().high);
-        out += actionNumber("Attack Straight", actions.attacks().high);
+        out += actionNumber("Attack High", actions.attacks().high);
         out += actionNumber("Block Breaker Straight", actions.breakers().straight);
         out += actionNumber("Attack Straight", actions.attacks().straight);
         out += actionNumber("Block Breaker Low", actions.breakers().low);

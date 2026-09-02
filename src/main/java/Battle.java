@@ -22,7 +22,7 @@ public class Battle {
     public void declareAction(boolean fighterID){
         getFighter(fighterID).setReady(true);
 
-        if (fighter1.isReady() && fighter2.isReady())
+        if (fighter1.isReady() && fighter2.isReady() && fighter1.getWounds()>0 && fighter2.getWounds()>0)
             resolveActions();
     }
 
