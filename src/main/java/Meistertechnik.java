@@ -43,14 +43,10 @@ public class Meistertechnik {
         }
         int maxCost = mana - cost;
 
-        String highD = " (9 Dmg)";
-        String strD = " (8 Dmg)";
-        String lowD = " (7 Dmg)";
-        if (fighterClass.equals(FighterClass.BARBARIAN)){
-            highD = " (18 Dmg)";
-            strD = " (16 Dmg)";
-            lowD = " (14 Dmg)";
-        }
+        int baseDamage = fighterClass.getBaseDamage();
+        String highD = " ("+ (baseDamage+2) +" Dmg)";
+        String strD = " ("+ baseDamage +" Dmg)";
+        String lowD = " ("+ (baseDamage-2) +" Dmg)";
 
         List<Action> list = new ArrayList<>(List.of(
                 new Action("aH", "Attack High"+highD, attackCost, ActionSchema.builder().attacks(1, 0, 0).build()),

@@ -102,14 +102,13 @@ public class Battle {
     private int applyHits(boolean fighterID, Zones hits){
         Fighter target = getFighter(fighterID);
         Fighter source = getFighter(!fighterID);
-        int baseDamage = 8;
-        if (source.getFighterClass().equals(FighterClass.BARBARIAN)) baseDamage *= 2;
+        int baseDamage = source.getFighterClass().getBaseDamage();
         for (int i = hits.high; i>0;i--){
             addEvent("hit",
-                    source.getName() + " lands a high attack on " + target.getName() + " for " + baseDamage*9/8 + " damage"
+                    source.getName() + " lands a high attack on " + target.getName() + " for " + (baseDamage+2) + " damage"
             );
         }
-        target.applyDamage(baseDamage*hits.high*9/8);
+        target.applyDamage((baseDamage+2)*hits.high);
         for (int i = hits.straight; i>0;i--){
             addEvent("hit",
                     source.getName() + " lands a straight attack on " + target.getName() + " for " + baseDamage + " damage"
@@ -118,12 +117,12 @@ public class Battle {
         target.applyDamage(baseDamage*hits.straight);
         for (int i = hits.low; i>0;i--){
             addEvent("hit",
-                    source.getName() + " lands a low attack on " + target.getName() + " for " + baseDamage*7/8 + " damage"
+                    source.getName() + " lands a low attack on " + target.getName() + " for " + (baseDamage-2) + " damage"
             );
         }
-        target.applyDamage(baseDamage*hits.low*7/8);
+        target.applyDamage((baseDamage-2)*hits.low);
 
-        return baseDamage*hits.high*9/8 + baseDamage*hits.straight + baseDamage*hits.low*7/8;
+        return (baseDamage+2)*hits.high + baseDamage*hits.straight + (baseDamage-2)*hits.low;
     }
 
     private void applyCounters(Zones counters, Zones attacks, Zones hits, boolean fighterID) {
