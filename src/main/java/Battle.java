@@ -7,11 +7,13 @@ public class Battle {
     private Fighter fighter1;
     private Fighter fighter2;
     private List<Event> events;
+    private boolean twoZones;
 
-    public Battle(FighterClass fighterClass1, FighterClass fighterClass2) {
+    public Battle(FighterClass fighterClass1, FighterClass fighterClass2, boolean twoZones) {
         this.turn = 1;
         this.fighter1 = new Fighter(fighterClass1);
         this.fighter2 = new Fighter(fighterClass2);
+        this.twoZones = twoZones;
         events = new ArrayList<>(List.of(new Event("global",1,"Start of Turn 1")));
     }
 
@@ -214,7 +216,7 @@ public class Battle {
 
     public List<Action> getActionOptions(boolean fighterID){
         return getFighter(fighterID).getMeistertechnik()
-                .getOptions(getFighter(fighterID).getSoulStrain());
+                .getOptions(getFighter(fighterID).getSoulStrain(), twoZones);
     }
 
     public void addFighterAction(boolean fighterID, String actionID){
@@ -271,5 +273,13 @@ public class Battle {
     private Fighter getFighter(boolean fighterID){
         if (fighterID) return fighter1;
         else return fighter2;
+    }
+
+    public boolean isTwoZones() {
+        return twoZones;
+    }
+
+    public void setTwoZones(boolean twoZones) {
+        this.twoZones = twoZones;
     }
 }

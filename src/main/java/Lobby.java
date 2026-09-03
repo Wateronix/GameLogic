@@ -7,12 +7,14 @@ public class Lobby {
     private boolean player1Ready;
     private boolean player2Ready;
     private Battle battle;
+    private boolean twoZones;
 
     public Lobby() {
         player1Selection = FighterClass.BARBARIAN;
         player2Selection = FighterClass.BARBARIAN;
         player1Ready = false;
         player2Ready = false;
+        twoZones = false;
     }
 
     public List<FighterClass> getFighterOptions(){
@@ -35,7 +37,7 @@ public class Lobby {
         else player2Ready = true;
 
         if (player1Ready && player2Ready)
-            battle = new Battle(player1Selection,player2Selection);
+            battle = new Battle(player1Selection,player2Selection,twoZones);
     }
 
     public FighterClass getPlayer1Selection() {
@@ -76,5 +78,13 @@ public class Lobby {
 
     public void setBattle(Battle battle) {
         this.battle = battle;
+    }
+
+    public boolean isTwoZones() {
+        return twoZones;
+    }
+
+    public void setTwoZones(boolean twoZones) {
+        this.twoZones = twoZones;
     }
 }

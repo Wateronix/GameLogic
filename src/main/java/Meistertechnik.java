@@ -13,7 +13,7 @@ public class Meistertechnik {
         this.actions = ActionSchema.builder().build();
     }
 
-    public List<Action> getOptions(int mana){
+    public List<Action> getOptions(int mana, boolean twoZones){
         int attacks = actions.attacks().sum();
         int parries = actions.parries();
         int blocks = actions.blocks().sum();
@@ -67,6 +67,7 @@ public class Meistertechnik {
                 new Action("cS", "Counter Straight", counterCost, ActionSchema.builder().counters(0, 1, 0).build()),
                 new Action("cL", "Counter Low", counterCost, ActionSchema.builder().counters(0, 0, 1).build())
         )).stream().filter(action -> action.cost() <= maxCost).toList();
+        if (twoZones) list = list.stream().filter(action -> !action.name().contains("Straight")).toList();
         return list;
     }
 
